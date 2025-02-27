@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { toast } from "sonner"
 
 type FormData = {
   username: string
@@ -35,7 +36,13 @@ export default function AuthForm({ isSignup = false }: AuthFormProps) {
       setUser(response.data);
       router.push("/dashboard/introduction");
     } else {
-      alert(response?.error)
+      toast("Uh oh! Something went wrong.", {
+        description: response?.error,
+        action: {
+          label: "Undo",
+          onClick: () => console.log("Undo")
+        }
+      })
     }
   }
 

@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { SendOtp } from "@/lib/auth";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner"
 
 type FormData = {
   username: string
@@ -24,7 +25,13 @@ export default function ForgotPassword() {
     if (response?.success) {
       router.push(`/validate-otp?email=${encodeURIComponent(data.email)}`);
     } else {
-      alert(response?.error)
+      toast("Uh oh! Something went wrong.", {
+        description: response?.error,
+        action: {
+          label: "Undo",
+          onClick: () => console.log("Undo")
+        }
+      })
     }
   }
 

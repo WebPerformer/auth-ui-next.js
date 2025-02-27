@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { ResetPasswordAction } from "@/lib/auth"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 
 type FormData = {
   newPassword: string;
@@ -31,7 +32,13 @@ export default function ResetPassword() {
     if (response?.success) {
       router.push('/')
     } else {
-      alert(response?.error)
+      toast("Uh oh! Something went wrong.", {
+        description: response?.error,
+        action: {
+          label: "Undo",
+          onClick: () => console.log("Undo")
+        }
+      })
     }
   }
 

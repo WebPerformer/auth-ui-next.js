@@ -10,6 +10,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp"
 import { useState } from "react";
+import { toast } from "sonner"
 
 type FormData = {
   email: string
@@ -38,7 +39,13 @@ export default function ValidateOtp() {
     if (response?.success) {
       router.push(`/reset-password?email=${encodeURIComponent(email)}&otp=${encodeURIComponent(otp)}`);
     } else {
-      alert(response?.error)
+      toast("Uh oh! Something went wrong.", {
+        description: response?.error,
+        action: {
+          label: "Undo",
+          onClick: () => console.log("Undo")
+        }
+      })
     }
   }
 
