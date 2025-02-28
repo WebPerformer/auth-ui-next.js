@@ -7,6 +7,10 @@ type SigninData = {
   password: string;
 };
 
+type SigninGoogleData = {
+  token: string;
+};
+
 type SignupData = {
   username: string;
   email: string;

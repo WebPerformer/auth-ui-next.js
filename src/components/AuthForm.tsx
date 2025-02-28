@@ -8,6 +8,7 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { toast } from "sonner"
+import getGoogleUrl from "@/lib/getGoogleUrl";
 
 type FormData = {
   username: string
@@ -36,12 +37,8 @@ export default function AuthForm({ isSignup = false }: AuthFormProps) {
       setUser(response.data);
       router.push("/dashboard/introduction");
     } else {
-      toast("Uh oh! Something went wrong.", {
+      toast.error("Uh oh! Something went wrong.", {
         description: response?.error,
-        action: {
-          label: "Undo",
-          onClick: () => console.log("Undo")
-        }
       })
     }
   }
@@ -84,6 +81,7 @@ export default function AuthForm({ isSignup = false }: AuthFormProps) {
         <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Enviando..." : isSignup ? "Sign up" : "Sign in"}
         </Button>
+        <Link href={getGoogleUrl()} className="font-medium pt-2">Sign in with Google</Link>
         <Link href="/forgot-password" className="font-medium pt-2">Forgot Password</Link>
       </form>
       <Link href={isSignup ? '/' : '/signup'} className="font-medium">
